@@ -6,15 +6,20 @@ class UsersController {
       id, name, lastname, email, password,
     } = req.body;
 
-    const user = await User.create({
-      id,
-      name,
-      lastname,
-      email,
-      password,
-    });
+    try {
+      const user = await User.create({
+        id,
+        name,
+        lastname,
+        email,
+        password,
+      });
 
-    res.json({ user });
+      return res.json({ user });
+    } catch (e) {
+      console.log(e);
+      return res.status(400).json({ errors: e.errors.map((err) => err.message) });
+    }
   }
 }
 
