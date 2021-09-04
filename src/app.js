@@ -5,6 +5,7 @@ import './database';
 
 import homeRouter from './routes/homeRouter';
 import usersRouter from './routes/usersRouter';
+import authRouter from './routes/authRouter';
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ class App {
   routes() {
     this.app.use('/', homeRouter);
     this.app.use('/', usersRouter);
+    this.app.use('/auth', authRouter);
   }
 }
 
