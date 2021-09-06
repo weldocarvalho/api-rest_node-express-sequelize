@@ -2,29 +2,27 @@ import User from '../models/User';
 
 class UsersController {
   async store(req, res) {
-    const {
-      id, name, lastname, email, password,
-    } = req.body;
+    // const { id, name, lastname, email, password } = req.body;
 
     try {
-      const user = await User.create({
-        id,
-        name,
-        lastname,
-        email,
-        password,
-      });
+      const user = await User.create(req.body);
 
-      return res.status(201).json({ user });
+      const { id, name, lastname, email } = user;
+
+      return res.status(201).json({ id, name, lastname, email });
     } catch (e) {
       console.log(e);
-      return res.status(400).json({ errors: e.errors.map((err) => err.message) });
+      return res
+        .status(400)
+        .json({ errors: e.errors.map((err) => err.message) });
     }
   }
 
   async index(req, res) {
     try {
-      const users = await User.findAll();
+      const users = await User.findAll({
+        attributes: ['id', 'name', 'email'],
+      });
 
       if (!users.length > 0) {
         return res.status(400).json({
@@ -57,7 +55,9 @@ class UsersController {
         });
       }
 
-      return res.status(200).json({ user });
+      const { id, name } = user;
+
+      return res.status(200).json({ id, name, email });
     } catch (error) {
       console.log(error);
       return res.status(500).json({ errors: ['algo inesperado ocorreu'] });
@@ -66,10 +66,8 @@ class UsersController {
 
   async update(req, res) {
     try {
-      const { id } = req.params;
-      const {
-        name, lastname, email, password,
-      } = req.body;
+      const id = req.userId;
+      // const { name, lastname, email, password } = req.body;
 
       if (!id) {
         return res.status(400).json({
@@ -85,23 +83,22 @@ class UsersController {
         });
       }
 
-      const updatedData = await user.update({
-        name,
-        lastname,
-        email,
-        password,
-      });
+      const updatedData = await user.update(req.body);
 
-      return res.status(201).json({ updatedData });
+      const { name, lastname, email } = updatedData;
+
+      return res.status(201).json({ id, name, lastname, email });
     } catch (e) {
       console.log(e);
-      return res.status(400).json({ errors: e.errors.map((err) => err.message) });
+      return res
+        .status(400)
+        .json({ errors: e.errors.map((err) => err.message) });
     }
   }
 
   async delete(req, res) {
     try {
-      const { id } = req.params;
+      const id = req.userId;
 
       if (!id) {
         return res.status(400).json({
@@ -122,7 +119,9 @@ class UsersController {
       return res.status(200).json({ success: 'usuário(a) apagado(a)' });
     } catch (e) {
       console.log(e);
-      return res.status(400).json({ errors: e.errors.map((err) => err.message) });
+      return res
+        .status(400)
+        .json({ errors: e.errors.map((err) => err.message) });
     }
   }
 }
