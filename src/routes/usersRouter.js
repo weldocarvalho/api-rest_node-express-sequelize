@@ -4,10 +4,11 @@ import authMid from '../middlewares/authMid';
 
 const router = new Router();
 
-router.get('/users', usersController.index);
-router.post('/users/search', usersController.show);
-router.post('/users', usersController.store);
-router.put('/users/:id', authMid, usersController.update);
-router.delete('/users/:id', authMid, usersController.delete);
+// router.get('/', usersController.index);
+// router.post('/search', usersController.show);
+
+router.post('/', usersController.store);
+router.put('/:id', authMid, usersController.update);
+router.delete('/:id', authMid, usersController.delete);
 
 export default router;

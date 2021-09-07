@@ -4,8 +4,9 @@ import express from 'express';
 import './database';
 
 import homeRouter from './routes/homeRouter';
-import usersRouter from './routes/usersRouter';
 import authRouter from './routes/authRouter';
+import usersRouter from './routes/usersRouter';
+import studentsRouter from './routes/studentsRouter';
 
 dotenv.config();
 
@@ -23,8 +24,9 @@ class App {
 
   routes() {
     this.app.use('/', homeRouter);
-    this.app.use('/', usersRouter);
     this.app.use('/auth', authRouter);
+    this.app.use('/users', usersRouter);
+    this.app.use('/students', studentsRouter);
   }
 }
 
