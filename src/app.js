@@ -7,6 +7,7 @@ import homeRouter from './routes/homeRouter';
 import authRouter from './routes/authRouter';
 import usersRouter from './routes/usersRouter';
 import studentsRouter from './routes/studentsRouter';
+import profilePictureRouter from './routes/profilePictureRouter';
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ class App {
     this.app.use('/auth', authRouter);
     this.app.use('/users', usersRouter);
     this.app.use('/students', studentsRouter);
+    this.app.use('/pictures', profilePictureRouter);
   }
 }
 
