@@ -5,7 +5,7 @@ export default class Student extends Model {
     super.init(
       {
         id: {
-          type: Sequelize.STRING,
+          type: Sequelize.INTEGER,
           primaryKey: true,
           autoIncrement: true,
           allowNull: false,
