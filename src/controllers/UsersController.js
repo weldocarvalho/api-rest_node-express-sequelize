@@ -67,11 +67,10 @@ class UsersController {
   async update(req, res) {
     try {
       const id = req.userId;
-      // const { name, lastname, email, password } = req.body;
 
       if (!id) {
         return res.status(400).json({
-          errors: ['ID não informado'],
+          errors: ['ID não identificado. Faça login novamente'],
         });
       }
 
@@ -102,7 +101,7 @@ class UsersController {
 
       if (!id) {
         return res.status(400).json({
-          errors: ['ID não informado'],
+          errors: ['ID não identificado. Faça login novamente'],
         });
       }
 
